@@ -19,10 +19,10 @@ from shutil import move
 import sys
 
 if len(sys.argv) == 1:
-    print('You must provide the sub-directory.\nExample: python wallpape.py mypictures\nNote: The base directory is hardcoded to ~/dropbox/work/images/chan')
+    print('You must provide the sub-directory.\nExample: python wallpape.py ~/Pictures/digitalcamera/rivers')
     sys.exit()
 
-path = join('/home/bard/dropbox/work/images/chan', sys.argv[1])
+path = sys.argv[1]
 
 goodBackgrounds = []
 finishedDir = join(path, '1920w')

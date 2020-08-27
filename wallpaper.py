@@ -13,16 +13,19 @@ directory with a width that exceeds 1920 will be resized to
 """
 
 from PIL import Image
-from os import listdir, mkdir
+from os import listdir, mkdir, getcwd, sep
 from os.path import join, isdir
 from shutil import move
 import sys
 
-if len(sys.argv) == 1:
-    print('You must provide the sub-directory.\nExample: python wallpape.py ~/Pictures/digitalcamera/rivers')
+if len(sys.argv) == 2 and sys.argv[1] == '--help':
+    print('You must provide the sub-directory.\nExample: python wallpape.py ~/Pictures/digitalcamera/rivers\nIf no directory is provided the tool will use the current working directory.\n')
     sys.exit()
 
-path = sys.argv[1]
+if len(sys.argv) == 1:
+    path = getcwd()
+elif len(sys.argv) == 2:
+    path = sys.argv[1]
 
 goodBackgrounds = []
 finishedDir = join(path, '1920w')
@@ -43,7 +46,7 @@ for file in listdir(path):
             counter += 1
             move(filePath, finishedDir)
         openImage.close()
-print('%s image(s) at least 1920 pixels in width were found in %s and moved to %s.' % (counter, '/' + sys.argv[1], '/' + sys.argv[1] + '/1920w'))
+print('%s image(s) at least 1920 pixels in width were found in %s and moved to %s.' % (counter, path, join(path, '1920w')))
 
 counter = 0
 for file in listdir(finishedDir):
@@ -54,7 +57,7 @@ for file in listdir(finishedDir):
             counter += 1
             move(filePath, finishedDir2)
         openImage.close()
-print('%s image(s) meeting the 16:9 aspect ratio were found in %s and moved to %s.' % (counter, '/1920w', '/1920w/16x9'))
+print('%s image(s) meeting the 16:9 aspect ratio were found in %s and moved to %s.' % (counter, '1920w', join('1920w', '16x9')))
 
 counter = 0
 for file in listdir(finishedDir2):

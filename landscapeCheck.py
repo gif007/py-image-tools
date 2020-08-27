@@ -2,22 +2,26 @@
 from PIL import Image
 import os, sys, shutil
 
-if len(sys.argv) < 2:
-    print('Example Usage: landscapeCheck ~/Pictures/image-set/')
-    print('Please include a path to a directory containing images.')
+if len(sys.argv) == 2 and sys.argv[1] == '--help':
+    print('Example Usage: landscapeCheck ~/Pictures/image-set/\nIf no path is included the utility will use the present working directory.')
     sys.exit()
 
-if not os.path.isdir(sys.argv[1]):
-    print('That is not a valid directory.')
-    sys.exit()
+if len(sys.argv) == 2:
+    if not os.path.isdir(sys.argv[1]):
+        print('That is not a valid directory.')
+        sys.exit()
+    else:
+        path = sys.argv[1]
+
+if len(sys.argv) == 1:
+    path = os.getcwd()
     
 # variables
 
 extensions = ['.jpg', '.png']
 images = []
 landscapes = []
-name = input('Choose a name prefix for copied files: ')
-path = sys.argv[1]
+name = input('Choose a name prefix for copied files or leave blank if you wish to retain original filenames: ')
 
 # functions
 
@@ -58,12 +62,20 @@ while True:
 
 # copy the images with a new name
 ### improve this with regex ###
+destPath = os.path.join(path, 'landscapes')
+if not os.path.isdir(destPath):
+    os.mkdir(destPath)
+
 for x, y in enumerate(landscapes): # check if enumerate can begin at 1
     x += 1
-    if y.endswith('.jpg'):
-        dest = '/home/bard/dropbox/work/' + name + str(x) + '.jpg'
+    if name:
+        if y.endswith('.jpg'):
+            dest = os.path.join(destPath, name + str(x) + '.jpg')
+        else:
+            dest = os.path.join(destPath, name + str(x) + '.png')
     else:
-        dest = '/home/bard/dropbox/work/' + name + str(x) + '.png'
+        dest = os.path.join(destPath, os.path.basename(y))
+
     shutil.copy(y, dest)
 
 print('Completed.')

@@ -2,8 +2,7 @@
 
 """
 wallpape.py: This script checks all of the images in the
-requested directory (as long as it exists in the chan scrape
-directory). If the images are landscape orientation and at
+requested directory. If the images are landscape orientation and at
 least 1920 pixels in width then they are moved to a nested
 directory called '1920w'. All images in '1920w' are then
 checked to see if they are 16:9, moving them to a directory

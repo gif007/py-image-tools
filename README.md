@@ -25,7 +25,7 @@ python --version
 You will also need to install the Python Image Library package ([PIL](https://pillow.readthedocs.io/en/stable/installation.html))
 
 ```
-pip install --upgrade pip
+pip install pillow
 ```
 
 ## Built With

@@ -25,6 +25,9 @@ if len(sys.argv) == 1:
     path = getcwd()
 elif len(sys.argv) == 2:
     path = sys.argv[1]
+    if not isdir(path):
+        print('Not a valid directory: %s' % path)
+        sys.exit()
 
 goodBackgrounds = []
 finishedDir = join(path, '1920w')

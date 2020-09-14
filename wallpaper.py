@@ -1,33 +1,14 @@
 #!/bin/python
 
-"""
-wallpape.py: This script checks all of the images in the
-requested directory. If the images are landscape orientation and at
-least 1920 pixels in width then they are moved to a nested
-directory called '1920w'. All images in '1920w' are then
-checked to see if they are 16:9, moving them to a directory
-called '16x9' if they meet the check. Any images in the 16x9
-directory with a width that exceeds 1920 will be resized to
-1920 x 1080.
-"""
-
 from PIL import Image
 from os import listdir, mkdir, getcwd, sep
 from os.path import join, isdir
 from shutil import move
 import sys
+from ArgumentParser import parser
 
-if len(sys.argv) == 2 and sys.argv[1] == '--help':
-    print('You must provide the sub-directory.\nExample: python wallpape.py ~/Pictures/digitalcamera/rivers\nIf no directory is provided the tool will use the current working directory.\n')
-    sys.exit()
-
-if len(sys.argv) == 1:
-    path = getcwd()
-elif len(sys.argv) == 2:
-    path = sys.argv[1]
-    if not isdir(path):
-        print('Not a valid directory: %s' % path)
-        sys.exit()
+args = parser.get_args()
+path = args.path
 
 goodBackgrounds = []
 finishedDir = join(path, '1920w')
@@ -48,7 +29,7 @@ for file in listdir(path):
             counter += 1
             move(filePath, finishedDir)
         openImage.close()
-print('%s image(s) at least 1920 pixels in width were found in %s and moved to %s.' % (counter, path, join(path, '1920w')))
+if args.verbose: print('%s image(s) at least 1920 pixels in width were found in %s and moved to %s.' % (counter, path, join(path, '1920w')))
 
 counter = 0
 for file in listdir(finishedDir):
@@ -59,7 +40,7 @@ for file in listdir(finishedDir):
             counter += 1
             move(filePath, finishedDir2)
         openImage.close()
-print('%s image(s) meeting the 16:9 aspect ratio were found in %s and moved to %s.' % (counter, '1920w', join('1920w', '16x9')))
+if args.verbose: print('%s image(s) meeting the 16:9 aspect ratio were found in %s and moved to %s.' % (counter, '1920w', join('1920w', '16x9')))
 
 counter = 0
 for file in listdir(finishedDir2):
@@ -72,3 +53,4 @@ for file in listdir(finishedDir2):
             openImageCopy.save(filePath)
             openImageCopy.close()
         openImage.close()
+print('complete')

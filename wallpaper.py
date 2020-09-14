@@ -1,10 +1,9 @@
 #!/bin/python
 
 from PIL import Image
-from os import listdir, mkdir, getcwd, sep
+from os import listdir, mkdir
 from os.path import join, isdir
 from shutil import move
-import sys
 from ArgumentParser import parser
 
 args = parser.get_args()

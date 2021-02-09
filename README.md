@@ -1,6 +1,6 @@
 # Image Tools
 
-This project contains scripts for separating landscape oriented images from those that are portrait oriented. It can also organize them into directories for images that are at least 1920px wide and those that are 1920px wide and in the 16:9 aspect ratio.
+This project contains scripts for separating landscape oriented images from those that are portrait oriented. It can also resize them to 1920px wide without losing their original ratio.
 
 ## Getting Started
 

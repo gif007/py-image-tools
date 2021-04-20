@@ -4,6 +4,7 @@ them so that the width is 1920px without losing the orignal ratio"""
 
 from PIL import Image, UnidentifiedImageError
 import os
+from tqdm import tqdm
 
 
 def get_new_dimensions(image):
@@ -17,7 +18,7 @@ def get_new_dimensions(image):
 
 if __name__ == '__main__':
 
-    for file in os.listdir(os.getcwd()):
+    for file in tqdm(os.listdir(os.getcwd())):
         try:
             image = Image.open(file)
         except IsADirectoryError:

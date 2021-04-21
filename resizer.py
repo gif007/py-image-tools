@@ -22,9 +22,11 @@ if __name__ == '__main__':
         try:
             image = Image.open(file)
         except IsADirectoryError:
-            print("(Skipping) '%s' is a directory." % file)
+            pass
+            # print("(Skipping) '%s' is a directory." % file)
         except UnidentifiedImageError:
-            print("(Skipping) '%s' is not an image." % file)
+            pass
+            # print("(Skipping) '%s' is not an image." % file)
         else:
             new_image = image.resize(get_new_dimensions(image))
             new_image.save(file)
